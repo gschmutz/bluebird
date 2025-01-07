@@ -6,10 +6,8 @@ name: Docker
 # documentation.
 
 on:
-  workflow_run:
-    workflows: ["publish"]
-    types:
-      - completed
+  push:
+    branches: [main]
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -60,7 +58,7 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: apps/cli
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
