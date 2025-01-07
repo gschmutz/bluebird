@@ -21,6 +21,19 @@ jobs:
     #if: ${{ github.event.workflow_run.conclusion == 'success' }}  # Only runs if 'Publish' workflow was successful
 
     steps:
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v4
+      - name: Check if version already exists
+        id: version-check
+        working-directory: apps/cli
+        run: |
+          package_version=$(node -p "require('./package.json').version")
+
+          echo "Creating docker image for version=$package_version ..."
+          echo "version=$package_version" >> $GITHUB_OUTPUT
+ 
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -62,9 +75,9 @@ jobs:
           context: apps/cli
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ github.event.release.tag_name }}
+          tags: ${{ steps.version-check.outputs.version }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
-            VERSION=${{ github.event.release.tag_name }}
+            VERSION=${{ steps.version-check.outputs.version }}
