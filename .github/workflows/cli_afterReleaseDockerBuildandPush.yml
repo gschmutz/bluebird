@@ -9,7 +9,6 @@ on:
   workflow_run:
     workflows: ["publish"]
 
-
 env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
