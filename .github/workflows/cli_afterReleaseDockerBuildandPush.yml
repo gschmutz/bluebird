@@ -1,4 +1,4 @@
-name: Docker
+name: docker
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -62,9 +62,9 @@ jobs:
           context: apps/cli
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ github.event.release.tag_name }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
-            VERSION=${{ steps.version-check.outputs.version }}
+            VERSION=${{ github.event.release.tag_name }}
