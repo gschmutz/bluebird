@@ -19,7 +19,6 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}  # Only runs if 'Publish' workflow was successful
 
     steps:
       - name: Checkout repository
