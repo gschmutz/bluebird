@@ -83,7 +83,7 @@ export class KafkaDestination extends Destination {
 
       for (const batch of batches) {
         const messages: Message[] = batch.map(event => ({
-          key: event?.record?.did || "n.a.",  // Use null if did is missing
+          key: event?.record?.did || null,  // Use null if did is missing
           value: JSON.stringify(event),
         }));
 
