@@ -3,7 +3,7 @@ FROM node:23-slim
 
 ARG VERSION=latest
 
-#RUN npm install -g @sdairs/bluebird@${VERSION}
+RUN npm install -g @sdairs/bluebird@${VERSION}
 
 # Copy the entrypoint shell script
 COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
