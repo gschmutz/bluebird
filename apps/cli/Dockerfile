@@ -13,7 +13,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN pnpm install && pnpm build
 
 # Copy the rest of your application code
 COPY . .
