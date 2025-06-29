@@ -19,7 +19,7 @@ RUN npm install
 COPY . .
 
 # If your app has a build step (e.g., TypeScript or bundling), include it
-RUN npm run build
+#RUN npm run build
 
 # Copy the entrypoint shell script
 COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
